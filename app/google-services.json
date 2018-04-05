@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "107690541440",
+    "firebase_url": "https://messenger-665c9.firebaseio.com",
+    "project_id": "messenger-665c9",
+    "storage_bucket": "messenger-665c9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:107690541440:android:2a59d7d5d7444a3f",
+        "android_client_info": {
+          "package_name": "com.sahilapps.messenger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "107690541440-vsebc7ij1mc3qb7346lo3olaqrplb2n9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sahilapps.messenger",
+            "certificate_hash": "24bc161e05f1c07fd23d73cc429d455d23927807"
+          }
+        },
+        {
+          "client_id": "107690541440-j08s13tci598bbvtngj6l7gh360s44c5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6StWit5g3PpTyuX180JrOLdvatw3N3Os"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "107690541440-j08s13tci598bbvtngj6l7gh360s44c5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
