@@ -64,9 +64,10 @@ public class AllUsersFragment extends Fragment {
             public void onEvent(QuerySnapshot queryDocumentSnapshots, FirebaseFirestoreException e) {
                 for (DocumentChange doc: queryDocumentSnapshots.getDocumentChanges()){
                     if (doc.getType() == DocumentChange.Type.ADDED){
+                        String user_id = doc.getDocument().getId();
                         User user = doc.getDocument().toObject(User.class);
+                        user.setUser_id(user_id);
                         userList.add(user);
-
                         userRecyclerAdapter.notifyDataSetChanged();
                     }
                 }

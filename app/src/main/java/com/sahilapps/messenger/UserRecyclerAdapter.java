@@ -1,6 +1,7 @@
 package com.sahilapps.messenger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
     public UserRecyclerAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.all_users_list_item, parent, false);
 
+
         return new viewHolder(view);
     }
 
@@ -36,6 +38,16 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
     public void onBindViewHolder(@NonNull UserRecyclerAdapter.viewHolder holder, int position) {
         holder.mUserNameTextView.setText(userList.get(position).getUser_name());
         Picasso.get().load(userList.get(position).getImage_url()).placeholder(R.drawable.placeholder).into(holder.mProfilePicImageView);
+        final String userId = userList.get(position).getUser_id();
+
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, SendActivity.class);
+                intent.putExtra(Intent.EXTRA_TEXT, userId);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -47,9 +59,11 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
 
         private CircleImageView mProfilePicImageView;
         private TextView mUserNameTextView;
+        private View mView;
 
         public viewHolder(View itemView) {
             super(itemView);
+            mView = itemView;
             mProfilePicImageView = itemView.findViewById(R.id.profile_pic_all_users);
             mUserNameTextView = itemView.findViewById(R.id.username_allusers);
         }

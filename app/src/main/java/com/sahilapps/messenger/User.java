@@ -3,6 +3,7 @@ package com.sahilapps.messenger;
 public class User {
     private String user_name;
     private String image_url;
+    private String user_id;
 
     public User() {
     }
@@ -26,5 +27,13 @@ public class User {
 
     public void setImage_url(String image_url) {
         this.image_url = image_url;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 }
