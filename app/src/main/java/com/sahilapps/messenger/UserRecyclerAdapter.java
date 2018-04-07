@@ -35,7 +35,7 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UserRecyclerAdapter.viewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull UserRecyclerAdapter.viewHolder holder, final int position) {
         holder.mUserNameTextView.setText(userList.get(position).getUser_name());
         Picasso.get().load(userList.get(position).getImage_url()).placeholder(R.drawable.placeholder).into(holder.mProfilePicImageView);
         final String userId = userList.get(position).getUser_id();
@@ -45,6 +45,7 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
             public void onClick(View v) {
                 Intent intent = new Intent(context, SendActivity.class);
                 intent.putExtra(Intent.EXTRA_TEXT, userId);
+                intent.putExtra("user_name", userList.get(position).getUser_name());
                 context.startActivity(intent);
             }
         });

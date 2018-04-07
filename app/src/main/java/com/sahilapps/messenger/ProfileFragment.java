@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -100,8 +101,15 @@ public class ProfileFragment extends Fragment {
         mLogOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                firebaseAuth.signOut();
-                sendtoLoginActivity();
+                Map<String, Object> tokenRemove = new HashMap<>();
+                tokenRemove.put("token_id", FieldValue.delete());
+                firebaseFirestore.collection("users").document(uid).update(tokenRemove).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        firebaseAuth.signOut();
+                        sendtoLoginActivity();
+                    }
+                });
             }
         });
 

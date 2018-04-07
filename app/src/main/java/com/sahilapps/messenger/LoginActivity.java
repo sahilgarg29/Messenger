@@ -11,9 +11,16 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GetTokenResult;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -22,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputEditText mUserEmailEditText;
     private TextInputEditText mUserPasswordEditText;
     private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore firebaseFirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         mUserPasswordEditText = findViewById(R.id.password_login);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
         mRegisterActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +66,17 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                sendToMainActivity();
+                                String token_id = FirebaseInstanceId.getInstance().getToken();
+                                String current_id = firebaseAuth.getCurrentUser().getUid();
+                                Map<String, Object> tokenMap = new HashMap<>();
+                                tokenMap.put("token_id", token_id);
+                                firebaseFirestore.collection("users").document(current_id).update(tokenMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        sendToMainActivity();
+
+                                    }
+                                });
                             }else {
                                 Toast.makeText(LoginActivity.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
